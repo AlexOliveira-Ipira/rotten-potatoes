@@ -36,4 +36,4 @@ jobs:
           push: true
           tags: |
             alexoliveiraipira/rotten-potatoes:latest
-            alexoliveiraipira/rotten-potatoes: ${{ github.run_number }}
+            alexoliveiraipira/rotten-potatoes:${{ github.run_number }}
