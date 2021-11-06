@@ -1,0 +1,42 @@
+version: '3.8'
+
+volumes:
+  mongo_vol:
+
+networks:
+  netRott:
+    driver: bridge
+
+services:
+
+  mongodb:
+    image: mongo:4.4.3
+
+    networks:
+      - netRott
+
+    volumes:
+      - mongo_vol:/base/db
+    
+    environment:
+      MONGODB_HOST: mongodb
+      MONGO_INITDB_ROOT_USERNAME: mongouser
+      MONGO_INITDB_ROOT_PASSWORD: mongopwd
+
+  api:
+    image: alexoliveiraipira/rotten-potatoes
+
+    ports:
+      - 8080:5000
+
+    networks:
+      - netRott
+
+    depends_on:
+      - mongodb
+
+    environment:
+      MONGODB_HOST: mongodb
+      MONGODB_USERNAME: mongouser
+      MONGODB_PASSWORD: mongopwd
+  
